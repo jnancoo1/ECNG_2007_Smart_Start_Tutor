@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>P2B Subproject Standalone Test Harness (ECO-StR6.1)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+    .pass { color: green; font-weight: bold; }
+    .fail { color: red; font-weight: bold; }
+    .test-case { background: white; margin-bottom: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    h2 { color: #333; }
+  </style>
+</head>
+<body>
+  <h2>P2B Subproject Standalone Test Harness (ECO-StR6.1)</h2>
+  <div id="test-results">Running isolation tests...</div>
+
+  <script>
+    async function runTests() {
+      const resultsContainer = document.getElementById('test-results');
+      let htmlOutput = '';
+
+      try {
+        // Test 1: Fetch and parse JSON Metadata Fixture inside p2b-fixtures
+        const response = await fetch('mock_datasheet.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        
+        htmlOutput += `<div class="test-case"><strong>Test 1: JSON Metadata Syntax & Structure</strong><br>Status: <span class="pass">PASS</span> (Successfully loaded mock_datasheet.json from p2b-fixtures)</div>`;
+
+        // Test 2: Validate Multi-Datasheet Array & Minimum 2 Devices (P2-StR2.1)
+        if (!data.datasheets || !Array.isArray(data.datasheets) || data.datasheets.length < 2) {
+          throw new Error("Schema must contain a 'datasheets' array with at least 2 devices (SN74LS00 & SN74HC00).");
+        }
+        htmlOutput += `<div class="test-case"><strong>Test 2: Multi-Datasheet Coverage</strong><br>Status: <span class="pass">PASS</span> (Found ${data.datasheets.length} approved IC datasheets)</div>`;
+
+        // Test 3: Validate Parameters and Bounding Boxes (V_IH, V_IL, t_PLH, t_PHL)
+        let totalParams = 0;
+        data.datasheets.forEach(ds => {
+          if (!ds.datasheetId || !ds.pages) throw new Error(`Datasheet missing ID or pages structure.`);
+          ds.pages.forEach(page => {
+            if (page.parameters) {
+              page.parameters.forEach(param => {
+                if (!param.name || !param.bbox) {
+                  throw new Error(`Parameter missing name or bounding box coordinates.`);
+                }
+                totalParams++;
+              });
+            }
+          });
+        });
+
+        htmlOutput += `<div class="test-case"><strong>Test 3: Parameter Bounding-Box Resolution</strong><br>Status: <span class="pass">PASS</span> (Verified ${totalParams} parameters with valid coordinates across all datasheets)</div>`;
+
+      } catch (err) {
+        htmlOutput += `<div class="test-case"><strong>Test Execution Error</strong><br>Status: <span class="fail">FAIL (${err.message})</span></div>`;
+      }
+
+      resultsContainer.innerHTML = htmlOutput;
+    }
+
+    runTests();
+  </script>
+</body>
+</html>

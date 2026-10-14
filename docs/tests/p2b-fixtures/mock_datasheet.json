@@ -1,0 +1,917 @@
+{
+  "version": "1.0",
+  "datasheets": [
+    {
+      "datasheetId": "SN74LS00",
+      "family": "TTL",
+      "datasheetRevision": "SDLS025D",
+      "documentTitle": "SNx400, SNx4LS00, and SNx4S00 Quadruple 2-Input Positive-NAND Gates (revised May 2017)",
+      "documentPath": "assets/p2b-datasheets/sn7400.pdf",
+      "pages": [
+        {
+          "pageNumber": 4,
+          "printedPage": "4",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "ls00-vcc",
+              "kind": "parameter",
+              "symbol": "VCC",
+              "name": "Supply voltage",
+              "description": "Power-supply range the SN74xx00 is specified to work from.",
+              "valueRange": {
+                "min": "4.75",
+                "typ": "5",
+                "max": "5.25",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3 Recommended Operating Conditions, SN74xx00 row",
+              "notes": "Datasheet column is NOM (nominal), stored in 'typ'.",
+              "bbox": {
+                "x": 55,
+                "y": 581,
+                "width": 490,
+                "height": 25
+              }
+            },
+            {
+              "id": "ls00-vih",
+              "kind": "parameter",
+              "symbol": "VIH",
+              "name": "High-level input voltage",
+              "description": "Lowest input voltage the gate is guaranteed to read as logic 1.",
+              "valueRange": {
+                "min": "2",
+                "typ": "-",
+                "max": "-",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3 Recommended Operating Conditions",
+              "bbox": {
+                "x": 55,
+                "y": 607,
+                "width": 490,
+                "height": 14
+              }
+            },
+            {
+              "id": "ls00-vil",
+              "kind": "parameter",
+              "symbol": "VIL",
+              "name": "Low-level input voltage",
+              "description": "Highest input voltage the gate is guaranteed to read as logic 0.",
+              "valueRange": {
+                "min": "-",
+                "typ": "-",
+                "max": "0.8",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3 Recommended Operating Conditions (SN74LS00 value; SN54LS00 is 0.7 V)",
+              "notes": "The datasheet row is labelled 'SNx400, SN7LS400, and SNx4S00'; 'SN7LS400' appears to be a misprint of SN74LS00 (the IOL rows use the same label for the 8 mA SN74LS00 value).",
+              "bbox": {
+                "x": 55,
+                "y": 621,
+                "width": 490,
+                "height": 25
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 7,
+          "printedPage": "7",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "ls00-tplh",
+              "kind": "parameter",
+              "symbol": "tPLH",
+              "name": "Propagation delay, low-to-high output",
+              "description": "Time for the output to rise after the input changes (A or B to Y).",
+              "valueRange": {
+                "min": "-",
+                "typ": "9",
+                "max": "15",
+                "unit": "ns"
+              },
+              "testConditions": "Section 6.9 SNx4LS00: VCC = 5 V, TA = 25°C, RL = 2 kΩ, CL = 15 pF",
+              "bbox": {
+                "x": 55,
+                "y": 301,
+                "width": 495,
+                "height": 13
+              }
+            },
+            {
+              "id": "ls00-tphl",
+              "kind": "parameter",
+              "symbol": "tPHL",
+              "name": "Propagation delay, high-to-low output",
+              "description": "Time for the output to fall after the input changes (A or B to Y).",
+              "valueRange": {
+                "min": "-",
+                "typ": "10",
+                "max": "15",
+                "unit": "ns"
+              },
+              "testConditions": "Section 6.9 SNx4LS00: VCC = 5 V, TA = 25°C, RL = 2 kΩ, CL = 15 pF",
+              "bbox": {
+                "x": 55,
+                "y": 314,
+                "width": 495,
+                "height": 13
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 8,
+          "printedPage": "8",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "figures": [
+            {
+              "id": "ls00-fig1",
+              "kind": "figure",
+              "figureNumber": "Figure 1",
+              "title": "TPHL (Across Devices)",
+              "description": "Chart of typical and maximum high-to-low propagation delay (ns) for the SN7400 (D1), SN74LS00 (D2) and SN74S00 (D3).",
+              "bbox": {
+                "x": 120,
+                "y": 103,
+                "width": 372,
+                "height": 268
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 9,
+          "printedPage": "9",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "figures": [
+            {
+              "id": "ls00-fig2",
+              "kind": "figure",
+              "figureNumber": "Figure 2",
+              "title": "Load Circuits and Voltage Waveforms",
+              "description": "Test load circuits and all voltage waveforms used for the switching measurements.",
+              "bbox": {
+                "x": 54,
+                "y": 117,
+                "width": 498,
+                "height": 488
+              }
+            },
+            {
+              "id": "ls00-fig2-delay",
+              "kind": "figure",
+              "figureNumber": "Figure 2 (part)",
+              "title": "Voltage Waveforms, Propagation Delay Times",
+              "description": "The part of Figure 2 showing how tPLH and tPHL are measured between input and output.",
+              "bbox": {
+                "x": 52,
+                "y": 430,
+                "width": 222,
+                "height": 175
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "datasheetId": "SN74HC00",
+      "family": "High-Speed CMOS",
+      "datasheetRevision": "SCLS181H",
+      "documentTitle": "SNx4HC00 Quadruple 2-Input NAND Gates (revised August 2021)",
+      "documentPath": "assets/p2b-datasheets/sn74hc00.pdf",
+      "pages": [
+        {
+          "pageNumber": 4,
+          "printedPage": "4",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "hc00-vcc",
+              "kind": "parameter",
+              "symbol": "VCC",
+              "name": "Supply voltage",
+              "description": "Power-supply range the device is specified to work from.",
+              "valueRange": {
+                "min": "2",
+                "typ": "5",
+                "max": "6",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3 Recommended Operating Conditions",
+              "notes": "Datasheet column is NOM (nominal), stored in 'typ'.",
+              "bbox": {
+                "x": 55,
+                "y": 489,
+                "width": 490,
+                "height": 14
+              }
+            },
+            {
+              "id": "hc00-vih",
+              "kind": "parameter",
+              "symbol": "VIH",
+              "name": "High-level input voltage",
+              "description": "Lowest input voltage guaranteed to read as logic 1; it scales with VCC.",
+              "valueRange": {
+                "min": "3.15",
+                "typ": "-",
+                "max": "-",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3, shown for VCC = 4.5 V",
+              "variants": [
+                {
+                  "condition": "VCC = 2 V",
+                  "min": "1.5",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VCC = 4.5 V",
+                  "min": "3.15",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VCC = 6 V",
+                  "min": "4.2",
+                  "typ": "-",
+                  "max": "-"
+                }
+              ],
+              "bbox": {
+                "x": 55,
+                "y": 503,
+                "width": 490,
+                "height": 40
+              }
+            },
+            {
+              "id": "hc00-vil",
+              "kind": "parameter",
+              "symbol": "VIL",
+              "name": "Low-level input voltage",
+              "description": "Highest input voltage guaranteed to read as logic 0; it scales with VCC.",
+              "valueRange": {
+                "min": "-",
+                "typ": "-",
+                "max": "1.35",
+                "unit": "V"
+              },
+              "testConditions": "Section 6.3, shown for VCC = 4.5 V",
+              "variants": [
+                {
+                  "condition": "VCC = 2 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "0.5"
+                },
+                {
+                  "condition": "VCC = 4.5 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "1.35"
+                },
+                {
+                  "condition": "VCC = 6 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "1.8"
+                }
+              ],
+              "bbox": {
+                "x": 55,
+                "y": 545,
+                "width": 490,
+                "height": 41
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 6,
+          "printedPage": "6",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "hc00-tpd",
+              "kind": "parameter",
+              "symbol": "tpd",
+              "name": "Propagation delay (A or B to Y)",
+              "description": "Delay from an input change to the output change; the datasheet gives one tpd rather than separate tPLH/tPHL.",
+              "valueRange": {
+                "min": "-",
+                "typ": "9",
+                "max": "18",
+                "unit": "ns"
+              },
+              "testConditions": "Section 6.7 Switching Characteristics, Commercial (74xx): VCC = 4.5 V, TA = 25°C",
+              "variants": [
+                {
+                  "condition": "VCC = 2 V, 25°C",
+                  "min": "-",
+                  "typ": "45",
+                  "max": "90"
+                },
+                {
+                  "condition": "VCC = 4.5 V, 25°C",
+                  "min": "-",
+                  "typ": "9",
+                  "max": "18"
+                },
+                {
+                  "condition": "VCC = 6 V, 25°C",
+                  "min": "-",
+                  "typ": "8",
+                  "max": "15"
+                },
+                {
+                  "condition": "VCC = 2 V, -40°C to 85°C",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "115"
+                },
+                {
+                  "condition": "VCC = 4.5 V, -40°C to 85°C",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "23"
+                },
+                {
+                  "condition": "VCC = 6 V, -40°C to 85°C",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "20"
+                }
+              ],
+              "notes": "Figure 7-2 on page 8 notes that the greater of tPLH and tPHL is the same as tpd.",
+              "bbox": {
+                "x": 55,
+                "y": 506,
+                "width": 490,
+                "height": 40
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 7,
+          "printedPage": "7",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "figures": [
+            {
+              "id": "hc00-fig6-1",
+              "kind": "figure",
+              "figureNumber": "Figure 6-1",
+              "title": "Typical Output Voltage in the High State (VOH)",
+              "description": "Graph of how the high output voltage varies for several supply voltages.",
+              "bbox": {
+                "x": 56,
+                "y": 219,
+                "width": 245,
+                "height": 179
+              }
+            },
+            {
+              "id": "hc00-fig6-2",
+              "kind": "figure",
+              "figureNumber": "Figure 6-2",
+              "title": "Typical Output Voltage in the Low State (VOL)",
+              "description": "Graph of how the low output voltage varies for several supply voltages.",
+              "bbox": {
+                "x": 306,
+                "y": 219,
+                "width": 252,
+                "height": 179
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 8,
+          "printedPage": "8",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "figures": [
+            {
+              "id": "hc00-fig7-1",
+              "kind": "figure",
+              "figureNumber": "Figure 7-1",
+              "title": "Load Circuit for Push-Pull Outputs",
+              "description": "Test load circuit; CL includes probe and test-fixture capacitance.",
+              "bbox": {
+                "x": 72,
+                "y": 165,
+                "width": 222,
+                "height": 116
+              }
+            },
+            {
+              "id": "hc00-fig7-2",
+              "kind": "figure",
+              "figureNumber": "Figure 7-2",
+              "title": "Voltage Waveforms, Propagation Delays",
+              "description": "Input and output waveforms showing how tPLH and tPHL are measured.",
+              "bbox": {
+                "x": 310,
+                "y": 160,
+                "width": 247,
+                "height": 180
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "datasheetId": "SN74LVC00A",
+      "family": "LVCMOS",
+      "datasheetRevision": "SCAS279U",
+      "documentTitle": "SNx4LVC00A Quadruple 2-Input Positive-NAND Gates (revised July 2024)",
+      "documentPath": "assets/p2b-datasheets/sn74lvc00a.pdf",
+      "pages": [
+        {
+          "pageNumber": 5,
+          "printedPage": "5",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "lvc00a-vcc",
+              "kind": "parameter",
+              "symbol": "VCC",
+              "name": "Supply voltage",
+              "description": "Power-supply range for normal operation (1.5 V is data retention only).",
+              "valueRange": {
+                "min": "1.65",
+                "typ": "-",
+                "max": "3.6",
+                "unit": "V"
+              },
+              "testConditions": "Section 5.4 Recommended Operating Conditions, SN74LVC00A, 'Operating' row",
+              "bbox": {
+                "x": 55,
+                "y": 148,
+                "width": 490,
+                "height": 26
+              }
+            },
+            {
+              "id": "lvc00a-vih",
+              "kind": "parameter",
+              "symbol": "VIH",
+              "name": "High-level input voltage",
+              "description": "Lowest input voltage guaranteed to read as logic 1.",
+              "valueRange": {
+                "min": "2",
+                "typ": "-",
+                "max": "-",
+                "unit": "V"
+              },
+              "testConditions": "Section 5.4, shown for VCC = 2.7 V to 3.6 V",
+              "variants": [
+                {
+                  "condition": "VCC = 1.65 V to 1.95 V",
+                  "min": "0.65 × VCC",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VCC = 2.3 V to 2.7 V",
+                  "min": "1.7",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VCC = 2.7 V to 3.6 V",
+                  "min": "2",
+                  "typ": "-",
+                  "max": "-"
+                }
+              ],
+              "bbox": {
+                "x": 55,
+                "y": 176,
+                "width": 490,
+                "height": 41
+              }
+            },
+            {
+              "id": "lvc00a-vil",
+              "kind": "parameter",
+              "symbol": "VIL",
+              "name": "Low-level input voltage",
+              "description": "Highest input voltage guaranteed to read as logic 0.",
+              "valueRange": {
+                "min": "-",
+                "typ": "-",
+                "max": "0.8",
+                "unit": "V"
+              },
+              "testConditions": "Section 5.4, shown for VCC = 2.7 V to 3.6 V",
+              "variants": [
+                {
+                  "condition": "VCC = 1.65 V to 1.95 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "0.35 × VCC"
+                },
+                {
+                  "condition": "VCC = 2.3 V to 2.7 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "0.7"
+                },
+                {
+                  "condition": "VCC = 2.7 V to 3.6 V",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "0.8"
+                }
+              ],
+              "bbox": {
+                "x": 55,
+                "y": 218,
+                "width": 490,
+                "height": 40
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 7,
+          "printedPage": "7",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "lvc00a-tpd",
+              "kind": "parameter",
+              "symbol": "tpd",
+              "name": "Propagation delay (A or B to Y)",
+              "description": "Delay from an input change to the output change.",
+              "valueRange": {
+                "min": "1",
+                "typ": "3.5",
+                "max": "4.1",
+                "unit": "ns"
+              },
+              "testConditions": "Section 5.9 Switching Characteristics, SN74LVC00A: TA = 25°C, VCC = 3.3 V ± 0.3 V (load per Figure 6-1: CL = 50 pF, RL = 500 Ω)",
+              "variants": [
+                {
+                  "condition": "VCC = 1.8 V ± 0.15 V, 25°C",
+                  "min": "1",
+                  "typ": "6",
+                  "max": "12"
+                },
+                {
+                  "condition": "VCC = 2.5 V ± 0.2 V, 25°C",
+                  "min": "1",
+                  "typ": "4.6",
+                  "max": "5.9"
+                },
+                {
+                  "condition": "VCC = 2.7 V, 25°C",
+                  "min": "1",
+                  "typ": "4.3",
+                  "max": "4.9"
+                },
+                {
+                  "condition": "VCC = 3.3 V ± 0.3 V, 25°C",
+                  "min": "1",
+                  "typ": "3.5",
+                  "max": "4.1"
+                }
+              ],
+              "bbox": {
+                "x": 55,
+                "y": 148,
+                "width": 490,
+                "height": 54
+              }
+            }
+          ],
+          "figures": [
+            {
+              "id": "lvc00a-fig5-1",
+              "kind": "figure",
+              "figureNumber": "Figure 5-1",
+              "title": "TPD vs VCC (TA = 25°C)",
+              "description": "Graph of propagation delay against supply voltage at 25°C.",
+              "bbox": {
+                "x": 185,
+                "y": 350,
+                "width": 240,
+                "height": 170
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 8,
+          "printedPage": "8",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "figures": [
+            {
+              "id": "lvc00a-fig6-1",
+              "kind": "figure",
+              "figureNumber": "Figure 6-1",
+              "title": "Load Circuit and Voltage Waveforms",
+              "description": "Test conditions per VCC (CL, RL, VM, VLOAD) and the waveforms used for the switching measurements.",
+              "bbox": {
+                "x": 58,
+                "y": 200,
+                "width": 502,
+                "height": 380
+              }
+            },
+            {
+              "id": "lvc00a-fig6-1-delay",
+              "kind": "figure",
+              "figureNumber": "Figure 6-1 (part)",
+              "title": "Voltage Waveforms, Propagation Delay Times",
+              "description": "The part of Figure 6-1 showing how tPLH and tPHL are measured.",
+              "bbox": {
+                "x": 58,
+                "y": 405,
+                "width": 218,
+                "height": 175
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "datasheetId": "CD4011B",
+      "family": "Standard CMOS",
+      "datasheetRevision": "SCHS021D",
+      "documentTitle": "CD4011B, CD4012B, CD4023B Types (revised September 2003)",
+      "documentPath": "assets/p2b-datasheets/cd4011b.pdf",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "printedPage": "3-26",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "cd4011b-vdd",
+              "kind": "parameter",
+              "symbol": "VDD",
+              "name": "Supply-voltage range",
+              "description": "Recommended supply range over the full package temperature range (absolute maximum is 20 V).",
+              "valueRange": {
+                "min": "3",
+                "typ": "-",
+                "max": "18",
+                "unit": "V"
+              },
+              "testConditions": "Recommended Operating Conditions, TA = full package-temperature range",
+              "bbox": {
+                "x": 34.0,
+                "y": 546.5,
+                "width": 329.2,
+                "height": 24.9
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 2,
+          "printedPage": "3-27",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "cd4011b-vil",
+              "kind": "parameter",
+              "symbol": "VIL",
+              "name": "Input low voltage",
+              "description": "Highest input voltage guaranteed to read as logic 0; it scales with VDD.",
+              "valueRange": {
+                "min": "-",
+                "typ": "-",
+                "max": "1.5",
+                "unit": "V"
+              },
+              "testConditions": "Static Electrical Characteristics, shown for VDD = 5 V",
+              "variants": [
+                {
+                  "condition": "VDD = 5 V (VO = 4.5 V)",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "1.5"
+                },
+                {
+                  "condition": "VDD = 10 V (VO = 9 V)",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "3"
+                },
+                {
+                  "condition": "VDD = 15 V (VO = 13.5 V)",
+                  "min": "-",
+                  "typ": "-",
+                  "max": "4"
+                }
+              ],
+              "bbox": {
+                "x": 43.2,
+                "y": 349.5,
+                "width": 343.0,
+                "height": 32.7
+              }
+            },
+            {
+              "id": "cd4011b-vih",
+              "kind": "parameter",
+              "symbol": "VIH",
+              "name": "Input high voltage",
+              "description": "Lowest input voltage guaranteed to read as logic 1; it scales with VDD.",
+              "valueRange": {
+                "min": "3.5",
+                "typ": "-",
+                "max": "-",
+                "unit": "V"
+              },
+              "testConditions": "Static Electrical Characteristics, shown for VDD = 5 V",
+              "variants": [
+                {
+                  "condition": "VDD = 5 V (VO = 0.5 V and 4.5 V)",
+                  "min": "3.5",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VDD = 10 V (VO = 1 V and 9 V)",
+                  "min": "7",
+                  "typ": "-",
+                  "max": "-"
+                },
+                {
+                  "condition": "VDD = 15 V (VO = 1.5 V and 13.5 V)",
+                  "min": "11",
+                  "typ": "-",
+                  "max": "-"
+                }
+              ],
+              "bbox": {
+                "x": 43.2,
+                "y": 384.2,
+                "width": 343.0,
+                "height": 36.0
+              }
+            }
+          ],
+          "figures": [
+            {
+              "id": "cd4011b-fig1",
+              "kind": "figure",
+              "figureNumber": "Fig. 1",
+              "title": "Typical voltage transfer characteristics",
+              "description": "Output voltage against input voltage for several supply voltages.",
+              "bbox": {
+                "x": 400.6,
+                "y": 91.6,
+                "width": 155.8,
+                "height": 142.7
+              }
+            },
+            {
+              "id": "cd4011b-fig2",
+              "kind": "figure",
+              "figureNumber": "Fig. 2",
+              "title": "Typical power dissipation characteristics",
+              "description": "Power dissipation per gate against input frequency.",
+              "bbox": {
+                "x": 400.6,
+                "y": 238.9,
+                "width": 155.8,
+                "height": 147.3
+              }
+            }
+          ]
+        },
+        {
+          "pageNumber": 3,
+          "printedPage": "3-28",
+          "pageSize": {
+            "width": 612,
+            "height": 792
+          },
+          "parameters": [
+            {
+              "id": "cd4011b-tpd",
+              "kind": "parameter",
+              "symbol": "tPHL, tPLH",
+              "name": "Propagation delay time",
+              "description": "Delay from input change to output change (high-to-low and low-to-high are given together).",
+              "valueRange": {
+                "min": "-",
+                "typ": "125",
+                "max": "250",
+                "unit": "ns"
+              },
+              "testConditions": "Dynamic Electrical Characteristics: TA = 25°C, input tr = tf = 20 ns, CL = 50 pF, RL = 200 kΩ; shown for VDD = 5 V",
+              "variants": [
+                {
+                  "condition": "VDD = 5 V",
+                  "min": "-",
+                  "typ": "125",
+                  "max": "250"
+                },
+                {
+                  "condition": "VDD = 10 V",
+                  "min": "-",
+                  "typ": "60",
+                  "max": "120"
+                },
+                {
+                  "condition": "VDD = 15 V",
+                  "min": "-",
+                  "typ": "45",
+                  "max": "90"
+                }
+              ],
+              "bbox": {
+                "x": 38.0,
+                "y": 638.2,
+                "width": 329.2,
+                "height": 32.7
+              }
+            }
+          ],
+          "figures": [
+            {
+              "id": "cd4011b-fig7",
+              "kind": "figure",
+              "figureNumber": "Fig. 7",
+              "title": "Schematic and logic diagrams for CD4011B",
+              "description": "Transistor-level schematic and logic diagram of the quad 2-input NAND gate.",
+              "bbox": {
+                "x": 39.3,
+                "y": 65.5,
+                "width": 189.8,
+                "height": 270.3
+              }
+            },
+            {
+              "id": "cd4011b-fig10",
+              "kind": "figure",
+              "figureNumber": "Fig. 10",
+              "title": "Typical propagation delay time per gate vs. load capacitance",
+              "description": "Graph of propagation delay against load capacitance for several supply voltages.",
+              "bbox": {
+                "x": 399.3,
+                "y": 356.7,
+                "width": 157.1,
+                "height": 174.8
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
