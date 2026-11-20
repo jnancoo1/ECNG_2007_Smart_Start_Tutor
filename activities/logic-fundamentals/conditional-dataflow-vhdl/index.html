@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VHDL Explorer 02 - Conditional Dataflow Logic Gates</title>
+
+    <link rel="stylesheet" href="../../../assets/site.css">
+    <link rel="stylesheet" href="../logic.css"> 
+
+    <script src="../../../assets/site.js" defer></script>
+    <script src="./activity.js" defer></script>
+</head>
+
+<body
+    data-root="../../../"
+    data-section="logic-fundamentals"
+    data-activity="conditional-dataflow-vhdl" 
+    data-title="VHDL Explorer 02 - Conditional Dataflow Logic Gates"
+>
+
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="site-sidebar" id="site-sidebar"></aside>
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+    <!-- Main content -->
+    <div class="site-stage">
+
+        <header class="page-toolbar">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open tutor menu" aria-expanded="false">&#9776;</button>
+            <a class="toolbar-title" href="../../../"><strong id="toolbar-title">SmartStart Digital Electronics Tutor</strong><span>IEEE EDS Trinidad and Tobago Chapter Edition</span></a>
+            <span class="toolbar-status" id="toolbar-progress" hidden></span>
+        </header>
+
+        <main class="page-content">
+
+        <article class="activity">
+
+            <!-- INTRODUCTION -->
+
+            <section class="hero" id="top">
+
+                <p class="eyebrow">VHDL EXPLORER 02</p>
+
+                <h1>Using Conditional Dataflow VHDL</h1>
+
+                <p class="hero-lead">
+                    Explore vectors and learn how to describe
+                    conditional signal assignments in VHDL.
+                </p>
+
+                <div class="activity-meta">
+                    <span>
+                        Topic: Conditional Dataflow, Vectors
+                        and Selected Signal Assignments
+                    </span>
+
+                    <span>Estimated time: 45–60 minutes</span>
+
+                    <span>Explore · Apply · Check · Extend</span>
+                </div>
+
+                <div class="callout">
+                    <strong>Your Challenge</strong>
+
+                    <p>
+                        Create a three-input equality detector
+                        that outputs '1' only when the input is
+                        "000" or "111".
+                    </p>
+                </div>
+
+                <a class="primary-link" href="#explore">
+                    Start Exploring ↓
+                </a>
+
+            </section>
+
+
+            <!-- EXPLORE VECTORS -->
+
+            <section class="lesson-section" id="explore">
+
+                <p class="section-kicker">01 · EXPLORE</p>
+
+                <h2>Revisiting the Two-Input AND Gate</h2>
+
+                <p>
+                    An AND gate has two inputs and one output.
+                    Its output is '1' only when both inputs are '1'.
+                </p>
+
+                <pre><code>Y &lt;= A and B;</code></pre>
+
+                <h3>AND Gate Truth Table</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>Y</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td>0</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td></tr>
+                        <tr><td>1</td><td>0</td><td>0</td></tr>
+                        <tr><td>1</td><td>1</td><td>1</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Grouping Signals Into a Vector</h3>
+
+                <p>
+                    Instead of declaring A and B separately,
+                    we can group them into one vector called I.
+                </p>
+
+                <pre><code>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity and_gate is
+    port (
+        I : in std_logic_vector(1 downto 0);
+        Y : out std_logic
+    );
+end entity and_gate;</code></pre>
+
+                <div class="concept-grid">
+
+                    <div class="concept-card">
+                        <strong>I(1)</strong>
+                        <span>Previous input A</span>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>I(0)</strong>
+                        <span>Previous input B</span>
+                    </div>
+
+                </div>
+
+                <h3>Direct Dataflow</h3>
+
+                <pre><code>architecture direct_dataflow of and_gate is
+begin
+    Y &lt;= I(1) and I(0);
+end architecture direct_dataflow;</code></pre>
+
+                <h3>Scalar Values and Vector Values</h3>
+
+                <div class="comparison-grid">
+
+                    <div>
+                        <span class="example-value">'1'</span>
+                        <strong>Scalar</strong>
+                        <p>One std_logic element.</p>
+                    </div>
+
+                    <div>
+                        <span class="example-value">"01"</span>
+                        <strong>Vector</strong>
+                        <p>Two std_logic elements.</p>
+                    </div>
+
+                </div>
+
+                <h3>Try Reading a Vector</h3>
+
+                <div class="interactive-panel">
+
+                    <label for="vector-picker">
+                        Choose a two-bit vector
+                    </label>
+
+                    <select id="vector-picker">
+                        <option value="00">"00"</option>
+                        <option value="01">"01"</option>
+                        <option value="10">"10"</option>
+                        <option value="11">"11"</option>
+                    </select>
+
+                    <p id="vector-reading" class="feedback">
+                        I(1) = '0' and I(0) = '0'.
+                    </p>
+
+                </div>
+
+                <h3>The Nine std_logic States</h3>
+
+                <div class="state-grid">
+
+                    <div><code>'0'</code><span>Logic zero</span></div>
+                    <div><code>'1'</code><span>Logic one</span></div>
+                    <div><code>'U'</code><span>Uninitialised</span></div>
+                    <div><code>'X'</code><span>Unknown</span></div>
+                    <div><code>'Z'</code><span>High impedance</span></div>
+                    <div><code>'W'</code><span>Weak unknown</span></div>
+                    <div><code>'L'</code><span>Weak zero</span></div>
+                    <div><code>'H'</code><span>Weak one</span></div>
+                    <div><code>'-'</code><span>Don't care</span></div>
+
+                </div>
+
+                <div class="callout warning">
+                    <strong>Important</strong>
+                    <p>
+                        'X' means unknown. It does not mean
+                        don't-care. The don't-care value is '-'.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- CONDITIONAL DATAFLOW -->
+
+            <section class="lesson-section" id="conditional">
+
+                <p class="section-kicker">02 · EXPLORE</p>
+
+                <h2>Conditional Dataflow</h2>
+
+                <p>
+                    We can describe the AND gate by examining
+                    the complete input vector and selecting
+                    an output value.
+                </p>
+
+                <h3>Method 1: when ... else</h3>
+
+                <pre><code>architecture conditional_when_else of and_gate is
+begin
+    Y &lt;= '1' when I = "11" else
+         '0' when I = "00" or I = "01" or I = "10" else
+         'X';
+end architecture conditional_when_else;</code></pre>
+
+                <h3>Method 2: with ... select</h3>
+
+                <pre><code>architecture conditional_with_select of and_gate is
+begin
+    with I select
+        Y &lt;= '0' when "00",
+             '0' when "01",
+             '0' when "10",
+             '1' when "11",
+             'X' when others;
+end architecture conditional_with_select;</code></pre>
+
+                <div class="callout">
+                    <strong>Why use when others?</strong>
+                    <p>
+                        It handles every input value that was
+                        not explicitly listed, including
+                        vectors containing unknown states.
+                    </p>
+                </div>
+
+                <h3>Compare the Three Descriptions</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Main Idea</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Direct dataflow</td>
+                            <td>State the logical relationship.</td>
+                        </tr>
+
+                        <tr>
+                            <td>when ... else</td>
+                            <td>Test a sequence of conditions.</td>
+                        </tr>
+
+                        <tr>
+                            <td>with ... select</td>
+                            <td>Select an output for each input.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+
+            <!-- EQUALITY DETECTOR -->
+
+            <section class="lesson-section" id="apply">
+
+                <p class="section-kicker">03 · APPLY</p>
+
+                <h2>Create a Three-Input Equality Detector</h2>
+
+                <p>
+                    The circuit has one three-element input
+                    vector I and one output Y.
+                </p>
+
+                <p>
+                    The output should be '1' when all three
+                    binary input elements have the same value.
+                </p>
+
+                <pre><code>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity equality_detector is
+    port (
+        I : in std_logic_vector(2 downto 0);
+        Y : out std_logic
+    );
+end entity equality_detector;</code></pre>
+
+                <h3>Input Positions</h3>
+
+                <div class="vector-display">
+                    <div>
+                        <strong>I(2)</strong>
+                        <span>Leftmost</span>
+                    </div>
+
+                    <div>
+                        <strong>I(1)</strong>
+                        <span>Middle</span>
+                    </div>
+
+                    <div>
+                        <strong>I(0)</strong>
+                        <span>Rightmost</span>
+                    </div>
+                </div>
+
+                <h3>Equality Detector Truth Table</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>I(2)</th>
+                            <th>I(1)</th>
+                            <th>I(0)</th>
+                            <th>Vector</th>
+                            <th>Y</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td>0</td><td>"000"</td><td>1</td></tr>
+                        <tr><td>0</td><td>0</td><td>1</td><td>"001"</td><td>0</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>"010"</td><td>0</td></tr>
+                        <tr><td>0</td><td>1</td><td>1</td><td>"011"</td><td>0</td></tr>
+                        <tr><td>1</td><td>0</td><td>0</td><td>"100"</td><td>0</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td><td>"101"</td><td>0</td></tr>
+                        <tr><td>1</td><td>1</td><td>0</td><td>"110"</td><td>0</td></tr>
+                        <tr><td>1</td><td>1</td><td>1</td><td>"111"</td><td>1</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>Think before coding</strong>
+                    <p>
+                        Which two input vectors produce '1'?
+                        Which six produce '0'?
+                    </p>
+                </div>
+
+                <h3>Your Task: Write with ... select</h3>
+
+                <p>
+                    Complete the selected signal assignment.
+                    Include all eight binary combinations.
+                </p>
+
+                <div class="code-workspace">
+
+                    <label for="select-code">
+                        Your VHDL architecture
+                    </label>
+
+                    <textarea
+                        id="select-code"
+                        spellcheck="false"
+                        placeholder="architecture conditional_with_select of equality_detector is
+begin
+    with I select
+        ...
+end architecture conditional_with_select;"></textarea>
+
+                    <div class="button-row">
+
+                        <button type="button" id="check-select">
+                            Check My Architecture
+                        </button>
+
+                        <button type="button" id="show-select">
+                            Show Example Answer
+                        </button>
+
+                        <button type="button" id="reset-select">
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <p id="select-feedback" class="feedback">
+                        Enter your architecture and check it.
+                    </p>
+
+                </div>
+
+                <h3>Test the Circuit</h3>
+
+                <div class="interactive-panel">
+
+                    <label for="equality-input">
+                        Select an input vector
+                    </label>
+
+                    <select id="equality-input">
+                        <option value="000">"000"</option>
+                        <option value="001">"001"</option>
+                        <option value="010">"010"</option>
+                        <option value="011">"011"</option>
+                        <option value="100">"100"</option>
+                        <option value="101">"101"</option>
+                        <option value="110">"110"</option>
+                        <option value="111">"111"</option>
+                        <option value="0X0">"0X0"</option>
+                    </select>
+
+                    <p class="result-display">
+                        Expected output:
+                        <strong id="equality-output">'1'</strong>
+                    </p>
+
+                    <p id="equality-explanation" class="feedback"></p>
+
+                </div>
+
+            </section>
+
+
+            <!-- EXTENSION -->
+
+            <section class="lesson-section" id="extend">
+
+                <p class="section-kicker">04 · EXTEND</p>
+
+                <h2>Rewrite Using when ... else</h2>
+
+                <p>
+                    You do not need a separate condition for
+                    every row. Only two vectors produce '1':
+                    "000" and "111".
+                </p>
+
+                <div class="code-workspace">
+
+                    <label for="else-code">
+                        Your when ... else architecture
+                    </label>
+
+                    <textarea
+                        id="else-code"
+                        spellcheck="false"
+                        placeholder="architecture conditional_when_else of equality_detector is
+begin
+    Y &lt;= ...;
+end architecture conditional_when_else;"></textarea>
+
+                    <div class="button-row">
+
+                        <button type="button" id="check-else">
+                            Check My Extension
+                        </button>
+
+                        <button type="button" id="show-else">
+                            Show Example Answer
+                        </button>
+
+                        <button type="button" id="reset-else">
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <p id="else-feedback" class="feedback"></p>
+
+                </div>
+
+                <h3>Compare Your Two Versions</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Consider</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Which resembles the truth table?</td>
+                            <td>with ... select</td>
+                        </tr>
+
+                        <tr>
+                            <td>Which can be shorter?</td>
+                            <td>when ... else</td>
+                        </tr>
+
+                        <tr>
+                            <td>Which highlights the two equality conditions?</td>
+                            <td>when ... else</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+
+            <!-- KNOWLEDGE CHECK -->
+
+            <section class="lesson-section" id="check">
+
+                <p class="section-kicker">05 · CHECK</p>
+
+                <h2>Knowledge Check</h2>
+
+                <form id="knowledge-check">
+
+                    <fieldset data-answer="b">
+
+                        <legend>
+                            1. Which quotation marks are used
+                            for a std_logic_vector?
+                        </legend>
+
+                        <label>
+                            <input type="radio" name="q1" value="a">
+                            Single quotation marks
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q1" value="b">
+                            Double quotation marks
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q1" value="c">
+                            No quotation marks
+                        </label>
+
+                    </fieldset>
+
+                    <fieldset data-answer="c">
+
+                        <legend>
+                            2. What does I(2) represent?
+                        </legend>
+
+                        <label>
+                            <input type="radio" name="q2" value="a">
+                            Rightmost element
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q2" value="b">
+                            Middle element
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q2" value="c">
+                            Leftmost element
+                        </label>
+
+                    </fieldset>
+
+                    <fieldset data-answer="a">
+
+                        <legend>
+                            3. Which vectors produce output '1'?
+                        </legend>
+
+                        <label>
+                            <input type="radio" name="q3" value="a">
+                            "000" and "111"
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q3" value="b">
+                            "001" and "110"
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q3" value="c">
+                            "010" and "101"
+                        </label>
+
+                    </fieldset>
+
+                    <fieldset data-answer="b">
+
+                        <legend>
+                            4. What does when others handle?
+                        </legend>
+
+                        <label>
+                            <input type="radio" name="q4" value="a">
+                            Only remaining binary values
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q4" value="b">
+                            Every value not explicitly listed
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q4" value="c">
+                            Only X
+                        </label>
+
+                    </fieldset>
+
+                    <fieldset data-answer="c">
+
+                        <legend>
+                            5. Does a concurrent selected
+                            signal assignment need a process?
+                        </legend>
+
+                        <label>
+                            <input type="radio" name="q5" value="a">
+                            Yes
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q5" value="b">
+                            Only for vectors
+                        </label>
+
+                        <label>
+                            <input type="radio" name="q5" value="c">
+                            No
+                        </label>
+
+                    </fieldset>
+
+                    <button type="submit">
+                        Check Answers
+                    </button>
+
+                    <p id="quiz-feedback" class="feedback"></p>
+
+                </form>
+
+            </section>
+
+
+            <!-- COMPLETION -->
+
+            <section class="lesson-section completion-section">
+
+                <p class="section-kicker">KEY IDEAS</p>
+
+                <h2>What You Should Understand</h2>
+
+                <ul>
+                    <li>
+                        A std_logic_vector groups multiple
+                        std_logic elements.
+                    </li>
+
+                    <li>
+                        Individual elements are accessed
+                        using an index.
+                    </li>
+
+                    <li>
+                        Scalar values use single quotation marks.
+                    </li>
+
+                    <li>
+                        Vector values use double quotation marks.
+                    </li>
+
+                    <li>
+                        when ... else tests conditions in order.
+                    </li>
+
+                    <li>
+                        with ... select lists input choices.
+                    </li>
+
+                    <li>
+                        when others handles unlisted values.
+                    </li>
+
+                    <li>
+                        Neither conditional assignment
+                        requires a process.
+                    </li>
+                </ul>
+
+                <p class="completion-note">
+                    You have reached the end of VHDL Explorer 02.
+                    Compare your implementation with the truth table
+                    and verify it through simulation.
+                </p>
+
+            </section>
+
+            <!-- Page navigation -->
+                <nav class="page-nav">
+
+                    <a href="../../../modules/logic-fundamentals/"><small>Module overview</small><strong>&larr; Logic Fundamentals</strong></a>
+            <a href="../hardware-practice/"><small>Next activity</small><strong>Hardware Practice &rarr;</strong></a>
+
+                </nav>
+
+            </div>
+        </div>
+
+        </article>
+
+        <footer class="page-footer">
+            <p>IEEE EDS Trinidad & Tobago - Digital Electronics Tutor</p>
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>
