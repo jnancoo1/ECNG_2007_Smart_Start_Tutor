@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VHDL Explorer 01 - Direct Dataflow Logic Gates</title>
+
+    <link rel="stylesheet" href="../../../assets/site.css">
+    <link rel="stylesheet" href="../logic.css"> 
+
+    <script src="../../../assets/site.js" defer></script>
+    <script src="activity.js" defer></script>
+</head>
+
+<body
+    data-root="../../../"
+    data-section="logic-fundamentals"
+    data-activity="direct-dataflow-vhdl" 
+    data-title="VHDL Explorer 01 - Direct Dataflow Logic Gates"
+>
+
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="site-sidebar" id="site-sidebar"></aside>
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+    <!-- Main content -->
+    <div class="site-stage">
+
+        <!-- Toolbar -->
+        <header class="site-toolbar">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open tutor menu" aria-expanded="false">&#9776;</button>
+            <a class="toolbar-title" href="../../../"><strong id="toolbar-title">SmartStart Digital Electronics Tutor</strong><span>IEEE EDS Trinidad and Tobago Chapter Edition</span></a>
+            <span class="toolbar-status" id="toolbar-progress" hidden></span>
+        </header>
+
+        <main class="page-content">
+
+            <!-- Activity introduction -->
+            <section class="activity-hero">
+                <div class="content-wrap">
+
+                    <p class="eyebrow">Logical Fundamentals</p>
+
+                    <h1>VHDL Explorer 01</h1>
+
+                    <h2>Direct Dataflow Logic Gates</h2>
+
+                    <p>
+                        Explore how basic digital logic gates can be described
+                        using VHDL dataflow statements. Experiment with inputs,
+                        observe outputs, and practise writing your own VHDL code.
+                    </p>
+
+                    <div class="activity-meta">
+                        <span>Estimated time: 30–45 minutes</span>
+                        <span>Beginner level</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <div class="content-wrap">
+
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs">
+                    <a href="../../../index.html">Home</a>
+                    <span>/</span>
+                    <a href="../index.html">Logical Fundamentals</a>
+                    <span>/</span>
+                    <span>VHDL Explorer 01</span>
+                </nav>
+
+                <!-- Learning objectives -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <h2>Learning Objectives</h2>
+                        <p>By the end of this activity, you should be able to:</p>
+                    </div>
+
+                    <ul>
+                        <li>Explain the purpose of an entity and architecture.</li>
+                        <li>Describe the behaviour of NOT, AND, OR and XOR gates.</li>
+                        <li>Understand the structure of a basic VHDL design.</li>
+                        <li>Write simple dataflow VHDL assignments.</li>
+                        <li>Interpret logic gate truth tables.</li>
+                    </ul>
+
+                </section>
+
+                <!-- Step 1: Introduction -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">01</span>
+                        <h2>Understanding VHDL Dataflow</h2>
+                    </div>
+
+                    <div class="instruction">
+                        <p>
+                            VHDL is a hardware description language used to
+                            describe digital circuits. In this activity, you
+                            will use dataflow descriptions to represent logic gates.
+                        </p>
+
+                        <p>
+                            A VHDL design generally contains two important parts:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Entity:</strong> Describes the external
+                                interface of the circuit, including its inputs
+                                and outputs.
+                            </li>
+                            <li>
+                                <strong>Architecture:</strong> Describes how
+                                the circuit operates.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="expression-card">
+                        <h3>Example: Inverter (NOT Gate)</h3>
+
+                        <pre><code>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity inverter is
+    port (
+        I : in  std_logic;
+        O : out std_logic
+    );
+end entity inverter;
+
+architecture dataflow of inverter is
+begin
+    O &lt;= not I;
+end architecture dataflow;</code></pre>
+                    </div>
+
+                    <div class="hint">
+                        <strong>Remember:</strong>
+                        <p>
+                            The entity describes the interface, while the
+                            architecture describes the operation.
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- Step 2: Inverter simulator -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">02</span>
+                        <h2>Explore the NOT Gate</h2>
+                    </div>
+
+                    <div class="instruction">
+                        <p>
+                            A NOT gate, also called an inverter, produces the
+                            opposite value of its input.
+                        </p>
+
+                        <p>
+                            Click the input switch to change its value between
+                            0 and 1. Observe how the output changes.
+                        </p>
+                    </div>
+
+                    <div class="circuit-grid">
+
+                        <div class="gate-controls">
+
+                            <h3>Input</h3>
+
+                            <div class="switch-row">
+                                <span>Input I</span>
+
+                                <button
+                                    type="button"
+                                    class="bit-switch"
+                                    id="not-input"
+                                    aria-label="Toggle NOT gate input"
+                                    aria-checked="false"
+                                    role="switch"
+                                >
+                                    <span>0</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="circuit-stage">
+
+                            <h3>NOT Gate</h3>
+
+                            <div class="gate-visual">
+                                <span>I</span>
+                                <span class="gate-symbol">NOT</span>
+                                <span>O</span>
+                            </div>
+
+                            <div class="result-box">
+                                <span>Output O</span>
+                                <strong id="not-output">1</strong>
+                            </div>
+
+                            <p id="not-status" class="feedback" aria-live="polite">
+                                Input I is 0, so output O is 1.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-wrap">
+
+                        <h3>NOT Gate Truth Table</h3>
+
+                        <table class="trace-table">
+                            <thead>
+                                <tr>
+                                    <th>Input I</th>
+                                    <th>Output O</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </section>
+
+                <!-- Step 3: AND OR XOR simulator -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">03</span>
+                        <h2>Explore AND, OR and XOR Gates</h2>
+                    </div>
+
+                    <div class="instruction">
+                        <p>
+                            Now explore three common two-input logic gates.
+                            Select a gate and change the values of inputs A and B.
+                        </p>
+                    </div>
+
+                    <div class="gate-controls">
+
+                        <label for="gate-choice">
+                            Select a logic gate:
+                        </label>
+
+                        <select id="gate-choice">
+                            <option value="and">AND Gate</option>
+                            <option value="or">OR Gate</option>
+                            <option value="xor">XOR Gate</option>
+                        </select>
+
+                    </div>
+
+                    <div class="circuit-grid">
+
+                        <div class="gate-controls">
+
+                            <h3>Inputs</h3>
+
+                            <div class="switch-row">
+                                <label>Input A</label>
+
+                                <button
+                                    type="button"
+                                    class="bit-switch"
+                                    id="gate-a"
+                                    aria-label="Toggle input A"
+                                    aria-checked="false"
+                                    role="switch"
+                                >
+                                    <span>0</span>
+                                </button>
+                            </div>
+
+                            <div class="switch-row">
+                                <label>Input B</label>
+
+                                <button
+                                    type="button"
+                                    class="bit-switch"
+                                    id="gate-b"
+                                    aria-label="Toggle input B"
+                                    aria-checked="false"
+                                    role="switch"
+                                >
+                                    <span>0</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="circuit-stage">
+
+                            <h3>Gate Output</h3>
+
+                            <div class="gate-visual">
+                                <span>A, B</span>
+                                <span class="gate-symbol" id="gate-symbol">
+                                    AND
+                                </span>
+                                <span>Y</span>
+                            </div>
+
+                            <div class="expression-card">
+                                <h4>VHDL Expression</h4>
+                                <code id="gate-expression">Y &lt;= A and B;</code>
+                            </div>
+
+                            <div class="result-box">
+                                <span>Output Y</span>
+                                <strong id="gate-output">0</strong>
+                            </div>
+
+                            <p id="gate-status" class="feedback" aria-live="polite">
+                                Input A is 0 and input B is 0.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-wrap">
+
+                        <h3>Logic Gate Truth Tables</h3>
+
+                        <table class="trace-table">
+
+                            <thead>
+                                <tr>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>AND</th>
+                                    <th>OR</th>
+                                    <th>XOR</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="hint">
+                        <p>
+                            <strong>AND:</strong> Output is 1 only when both
+                            inputs are 1.
+                        </p>
+
+                        <p>
+                            <strong>OR:</strong> Output is 1 when at least one
+                            input is 1.
+                        </p>
+
+                        <p>
+                            <strong>XOR:</strong> Output is 1 when the inputs
+                            are different.
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- Step 4: VHDL code editor -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">04</span>
+                        <h2>Write Your VHDL Code</h2>
+                    </div>
+
+                    <div class="instruction">
+                        <p>
+                            Use the examples to understand how each logic gate
+                            is represented using VHDL dataflow statements.
+                        </p>
+
+                        <p>
+                            Select a gate to load its example. You can edit
+                            the code and use the checker to review its structure.
+                        </p>
+                    </div>
+
+                    <div class="gate-controls">
+
+                        <label for="code-gate">Choose a gate example:</label>
+
+                        <select id="code-gate">
+                            <option value="and">AND Gate</option>
+                            <option value="or">OR Gate</option>
+                            <option value="xor">XOR Gate</option>
+                        </select>
+
+                    </div>
+
+                    <div class="code-editor-section">
+
+                        <label for="vhdl-editor">
+                            VHDL Code Editor
+                        </label>
+
+                        <textarea
+                            id="vhdl-editor"
+                            rows="24"
+                            spellcheck="false"
+                            aria-label="VHDL code editor"
+                        >library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity and_gate is
+    port (
+        A : in std_logic;
+        B : in std_logic;
+        Y : out std_logic
+    );
+end entity and_gate;
+
+architecture dataflow of and_gate is
+begin
+    Y &lt;= A and B;
+end architecture dataflow;</textarea>
+
+                    </div>
+
+                    <div class="action-row">
+
+                        <button
+                            type="button"
+                            class="action-button"
+                            id="check-code"
+                        >
+                            Check My Code
+                        </button>
+
+                        <button
+                            type="button"
+                            class="action-button"
+                            id="reset-code"
+                        >
+                            Reset Code
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="code-feedback"
+                        class="feedback"
+                        aria-live="polite"
+                    >
+                        Example loaded. You can now edit the code.
+                    </p>
+
+                    <div class="hint">
+                        <strong>Important VHDL rules:</strong>
+
+                        <ul>
+                            <li>Include the IEEE library and STD_LOGIC_1164 package.</li>
+                            <li>Declare your entity and its ports.</li>
+                            <li>Use a dataflow architecture.</li>
+                            <li>Use the correct logical operator.</li>
+                            <li>End statements with the appropriate semicolons.</li>
+                        </ul>
+                    </div>
+
+                </section>
+
+                <!-- Step 5: Checklist -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">05</span>
+                        <h2>VHDL Completion Checklist</h2>
+                    </div>
+
+                    <p>
+                        Before moving on, make sure you understand each of
+                        the following concepts.
+                    </p>
+
+                    <div id="vhdl-checklist" class="checklist">
+
+                        <label>
+                            <input type="checkbox">
+                            I understand the purpose of the IEEE library.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I understand the difference between an entity
+                            and an architecture.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I can identify input and output ports.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I understand the std_logic data type.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I can write an AND gate using VHDL.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I can write an OR gate using VHDL.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I can write an XOR gate using VHDL.
+                        </label>
+
+                        <label>
+                            <input type="checkbox">
+                            I understand direct dataflow assignments.
+                        </label>
+
+                    </div>
+
+                    <p
+                        id="checklist-feedback"
+                        class="feedback"
+                        aria-live="polite"
+                    >
+                        0 of 8 checklist items completed.
+                    </p>
+
+                </section>
+
+                <!-- Step 6: Knowledge check -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">06</span>
+                        <h2>Knowledge Check</h2>
+                    </div>
+
+                    <p>
+                        Answer all five questions to test your understanding
+                        of direct dataflow logic gates.
+                    </p>
+
+                    <form id="quiz-form">
+
+                        <!-- Question 1 -->
+                        <div class="quiz-question">
+
+                            <h3>Question 1</h3>
+
+                            <p>
+                                What is the main purpose of a VHDL entity?
+                            </p>
+
+                            <label>
+                                <input type="radio" name="q1" value="a">
+                                A. To describe the internal operation.
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q1" value="b">
+                                B. To define the external interface.
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q1" value="c">
+                                C. To perform simulation only.
+                            </label>
+
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="quiz-question">
+
+                            <h3>Question 2</h3>
+
+                            <p>
+                                Which VHDL operator is used for an AND gate?
+                            </p>
+
+                            <label>
+                                <input type="radio" name="q2" value="a">
+                                A. or
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q2" value="b">
+                                B. xor
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q2" value="c">
+                                C. and
+                            </label>
+
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="quiz-question">
+
+                            <h3>Question 3</h3>
+
+                            <p>
+                                What is the output of an XOR gate when
+                                A = 1 and B = 1?
+                            </p>
+
+                            <label>
+                                <input type="radio" name="q3" value="a">
+                                A. 0
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q3" value="b">
+                                B. 1
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q3" value="c">
+                                C. Undefined
+                            </label>
+
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="quiz-question">
+
+                            <h3>Question 4</h3>
+
+                            <p>
+                                Which VHDL statement describes a direct
+                                dataflow assignment?
+                            </p>
+
+                            <label>
+                                <input type="radio" name="q4" value="a">
+                                A. if A = 1 then
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q4" value="b">
+                                B. Y &lt;= A and B;
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q4" value="c">
+                                C. for i in 0 to 3 loop
+                            </label>
+
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="quiz-question">
+
+                            <h3>Question 5</h3>
+
+                            <p>
+                                Which package provides the std_logic data type?
+                            </p>
+
+                            <label>
+                                <input type="radio" name="q5" value="a">
+                                A. IEEE.STD_LOGIC_1164
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q5" value="b">
+                                B. IEEE.MATH
+                            </label>
+
+                            <label>
+                                <input type="radio" name="q5" value="c">
+                                C. IEEE.TEXT
+                            </label>
+
+                        </div>
+
+                        <div class="action-row">
+
+                            <button
+                                type="submit"
+                                class="action-button"
+                            >
+                                Check Answers
+                            </button>
+
+                            <button
+                                type="button"
+                                class="action-button"
+                                id="quiz-clear"
+                            >
+                                Clear Answers
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <p
+                        id="quiz-feedback"
+                        class="feedback"
+                        aria-live="polite"
+                    >
+                        Your score will appear here after you submit.
+                    </p>
+
+                </section>
+
+                <!-- Step 7: Extension -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <span class="step-number">07</span>
+                        <h2>Extend Your Knowledge</h2>
+                    </div>
+
+                    <p>
+                        You have explored AND, OR, XOR and NOT gates.
+                        Now try extending your knowledge.
+                    </p>
+
+                    <div class="instruction">
+
+                        <h3>Challenge</h3>
+
+                        <ol>
+                            <li>Choose one additional gate: NAND, NOR or XNOR.</li>
+                            <li>Write its truth table.</li>
+                            <li>Identify the logical operation it performs.</li>
+                            <li>Write a VHDL dataflow statement for the gate.</li>
+                            <li>Explain how its output differs from the original gate.</li>
+                        </ol>
+
+                    </div>
+
+                    <div class="hint">
+                        <strong>Think about it:</strong>
+                        <p>
+                            How can you combine existing logical operations
+                            to describe a different logic gate?
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- Completion -->
+                <section class="activity-panel">
+
+                    <div class="section-heading">
+                        <h2>Activity Complete!</h2>
+                    </div>
+
+                    <p>
+                        You have explored basic logic gates and their
+                        representation using direct dataflow VHDL.
+                    </p>
+
+                    <p>
+                        Remember: the entity defines the circuit interface,
+                        and the architecture describes how the circuit operates.
+                    </p>
+
+                    <p>
+                        Share your completed activity and any questions with
+                        the EDS Student Chat.
+                    </p>
+
+                </section>
+
+                <!-- Page navigation -->
+                <nav class="page-nav">
+
+                    <a href="../../../modules/logic-fundamentals/"><small>Module overview</small><strong>&larr; Logic Fundamentals</strong></a>
+            <a href="../gate-family/"><small>Next activity</small><strong>The Gate Family &rarr;</strong></a>
+
+                </nav>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>IEEE EDS Trinidad & Tobago - Digital Electronics Tutor</p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
