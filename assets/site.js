@@ -1,4 +1,3 @@
-
 "use strict";
 
 (function initialiseSmartStartShell(globalObject) {
@@ -32,8 +31,8 @@
       { n: "2.2", t: "The Gate Family and De Morgan", s: "gate-family" },
       { n: "2.3", t: "Complete the Gate Truth Tables", s: "gate-truth-tables" },
       { n: "2.4", t: "Signal Flow Through a Circuit", s: "signal-flow" },
-      { n: "2.5", t: "Using Digital Dataflow VHDL", s: "digital dataflow" }
-
+      { n: "2.5", t: "Using Digital Dataflow VHDL", s: "direct-dataflow-vhdl" },
+      { n: "2.6", t: "Using Conditional Dataflow VHDL", s: "conditional-dataflow-vhdl" }
     ],
     "hardware-practice": [
       { n: "3.1", t: "MOSFETs and CMOS Logic", s: "mosfet-cmos" },
@@ -235,7 +234,7 @@
       // that progress saved before the module was split still counts.
       "digital-values", "integrated-circuits", "logic-levels", "two-state-representations", "bits",
       // Module 2. "logic-gates" likewise stays on activity 2.1.
-      "logic-gates", "gate-family", "gate-truth-tables", "signal-flow",
+      "logic-gates", "gate-family", "gate-truth-tables", "signal-flow", "direct-dataflow-vhdl", "conditional-dataflow-vhdl",
       "boolean-algebra", "boolean-truth-tables", "canonical-forms", "karnaugh-maps", "logic-hazards", "petrick-method", "synthesis-with-gates",
       "binary-values", "number-systems", "signed-numbers", "fixed-floating", "ieee754", "bcd", "gray-code", "ascii",
       "decoder", "encoder", "multiplexer", "demultiplexer", "decoder-applications", "mux-synthesis",
