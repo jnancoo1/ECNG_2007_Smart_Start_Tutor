@@ -31,7 +31,9 @@
       { n: "2.1", t: "The Three Basic Gates", s: "basic-gates" },
       { n: "2.2", t: "The Gate Family and De Morgan", s: "gate-family" },
       { n: "2.3", t: "Complete the Gate Truth Tables", s: "gate-truth-tables" },
-      { n: "2.4", t: "Signal Flow Through a Circuit", s: "signal-flow" }
+      { n: "2.4", t: "Signal Flow Through a Circuit", s: "signal-flow" },
+      { n: "2.5", t: "Using Digital Dataflow VHDL", s: "digital dataflow" }
+
     ],
     "hardware-practice": [
       { n: "3.1", t: "MOSFETs and CMOS Logic", s: "mosfet-cmos" },
