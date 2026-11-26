@@ -59,7 +59,8 @@
       { n: "5.4", t: "Demultiplexers", s: "demultiplexer" },
       { n: "5.5", t: "Decoder Applications", s: "decoder-applications" },
       { n: "5.6", t: "Logic Synthesis with Multiplexers", s: "mux-synthesis" },
-      { n: "5.7", t: "3-bit Parity Generator", s: "parity" }
+      { n: "5.7", t: "3-bit Parity Generator", s: "parity" },
+      { n: "5.8", t: "Ripple-Carry Adder", s: "ripple-timing" }
     ],
     "data-representation": [
       { n: "6.1", t: "Binary Values and Place Value", s: "binary-values" },
