@@ -1,0 +1,85 @@
+{
+  "intro": "A link sends three data bits and one extra bit. Choose the extra bit so the receiver counts an even or odd total number of ones.",
+  "cases": [
+    {
+      "word": "000",
+      "ones": 0,
+      "even": 0,
+      "odd": 1
+    },
+    {
+      "word": "001",
+      "ones": 1,
+      "even": 1,
+      "odd": 0
+    },
+    {
+      "word": "010",
+      "ones": 1,
+      "even": 1,
+      "odd": 0
+    },
+    {
+      "word": "011",
+      "ones": 2,
+      "even": 0,
+      "odd": 1
+    },
+    {
+      "word": "100",
+      "ones": 1,
+      "even": 1,
+      "odd": 0
+    },
+    {
+      "word": "101",
+      "ones": 2,
+      "even": 0,
+      "odd": 1
+    },
+    {
+      "word": "110",
+      "ones": 2,
+      "even": 0,
+      "odd": 1
+    },
+    {
+      "word": "111",
+      "ones": 3,
+      "even": 1,
+      "odd": 0
+    }
+  ],
+  "questions": [
+    {
+      "title": "Build an even word",
+      "prompt": "The transmitter sends 101 in even mode. Which parity bit completes the word?",
+      "options": [
+        "0",
+        "1"
+      ],
+      "answer": 0,
+      "feedback": "101 contains two ones. Appending 0 gives 1010, which still contains two ones."
+    },
+    {
+      "title": "Change the mode",
+      "prompt": "Keep the data at 101 and select odd mode. What happens to the parity bit?",
+      "options": [
+        "It stays at 0",
+        "It changes to 1"
+      ],
+      "answer": 1,
+      "feedback": "Only odd_mode changed. XOR with 1 flips the output, giving 1011 with three ones."
+    },
+    {
+      "title": "Read the board",
+      "prompt": "SW2…SW0 read 111 and SW3 is up (odd mode). What should LD0 show?",
+      "options": [
+        "Off (0)",
+        "On (1)"
+      ],
+      "answer": 0,
+      "feedback": "111 already has three ones. A parity bit of 0 preserves odd parity, so LD0 is off."
+    }
+  ]
+}

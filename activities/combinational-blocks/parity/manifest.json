@@ -1,0 +1,12 @@
+{
+  "module": "P1B",
+  "activities": [
+    {
+      "id": "p1b-parity",
+      "title": "Build a 3-bit parity word",
+      "entry": "index.html",
+      "component": "parity-activity",
+      "content": "lesson.json"
+    }
+  ]
+}

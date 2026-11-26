@@ -1,0 +1,40 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Wed Nov 11 14:12:26 2026
+| Host         : DariusDeonarine running 64-bit major release  (build 9200)
+| Command      : report_timing -from [all_inputs] -to [all_outputs] -delay_type max -file {C:/Users/dariu/Desktop/2007 dev project/ECNG-2007-GP-main/ECNG-2007-GP-main/P1B/parity/evidence/routed_timing.rpt}
+| Design       : parity_generator
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack:                    inf
+  Source:                 data_in[1]
+                            (input port)
+  Destination:            parity_bit
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        8.344ns  (logic 5.090ns (61.006%)  route 3.253ns (38.994%))
+  Logic Levels:           3  (IBUF=1 LUT4=1 OBUF=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    V16                                               0.000     0.000 r  data_in[1]
+                         net (fo=0)                   0.000     0.000    data_in[1]
+    V16                  IBUF (Prop_ibuf_I_O)         1.461     1.461 r  data_in_IBUF[1]_inst/O
+                         net (fo=1, routed)           1.379     2.841    data_in_IBUF[1]
+    SLICE_X0Y10          LUT4 (Prop_lut4_I1_O)        0.124     2.965 r  parity_bit_OBUF_inst_i_1/O
+                         net (fo=1, routed)           1.874     4.839    parity_bit_OBUF
+    U16                  OBUF (Prop_obuf_I_O)         3.505     8.344 r  parity_bit_OBUF_inst/O
+                         net (fo=0)                   0.000     8.344    parity_bit
+    U16                                                               r  parity_bit
+  -------------------------------------------------------------------    -------------------
+
+
+
+

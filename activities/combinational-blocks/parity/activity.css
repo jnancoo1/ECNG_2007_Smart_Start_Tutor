@@ -1,0 +1,19 @@
+parity-activity { display: block; }
+parity-activity:defined > .load-fallback { display: none; }
+parity-activity fieldset { border: 0; margin: 1rem 0; padding: 0; }
+parity-activity label { display: inline-block; margin: .25rem .8rem .25rem 0; }
+parity-activity label input { margin-right: .35rem; }
+parity-activity button, parity-activity select {
+  border: 1px solid var(--line); border-radius: .4rem; padding: .55rem .85rem;
+  background: white; color: var(--ieee-blue-dark); font: inherit;
+}
+parity-activity button { cursor: pointer; }
+parity-activity button.primary { background: var(--ieee-blue); color: white; }
+parity-activity button:disabled { cursor: default; opacity: .6; }
+parity-activity nav { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0; }
+parity-activity details { margin: .75rem 0; }
+parity-activity summary { cursor: pointer; font-weight: 600; }
+parity-activity pre { overflow: auto; padding: 1rem; border-radius: .4rem; background: #10283f; color: white; }
+parity-activity table { border-collapse: collapse; }
+parity-activity th, parity-activity td { border: 1px solid var(--line); padding: .35rem .65rem; }
+parity-activity article > small { color: var(--muted); }
