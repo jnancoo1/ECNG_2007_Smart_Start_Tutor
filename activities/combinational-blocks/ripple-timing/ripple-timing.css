@@ -1,0 +1,14 @@
+/* Ripple-Carry Timing: only what blocks.css does not already provide. */
+.rt-stages { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); margin: 1rem 0; }
+.rt-stages .output-card { padding: .5rem .35rem; font-size: .8rem; line-height: 1.45; }
+.rt-stages .output-card.settled { background: var(--success-soft); outline: 2px solid var(--success); }
+.rt-type { font-size: 1rem; font-weight: 900; }
+.rt-G { color: var(--success); }
+.rt-P { color: var(--warning); }
+.rt-K { color: var(--muted); }
+.summary-card span { color: var(--muted); font-size: .85rem; }
+.summary-card strong { font-size: 1.1rem; overflow-wrap: anywhere; }
+pre.equation { margin: 1rem 0 0; overflow-x: auto; font-size: .85rem; font-weight: 600; line-height: 1.5; }
+.rt-links .action-button { display: inline-flex; align-items: center; text-decoration: none; }
+input[type=range] { accent-color: var(--ieee-blue); }
+@media (max-width: 700px) { .summary-grid { grid-template-columns: 1fr; } }

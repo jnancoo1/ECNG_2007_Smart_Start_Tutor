@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore why a long ripple-carry chain is slow, see how it is built from full adders with port mapping, and how the design maps onto a Basys 3 board.">
+  <title>Ripple-Carry Timing and the FPGA Bridge | SmartStart Digital Electronics Tutor</title>
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="../blocks.css">
+  <link rel="stylesheet" href="ripple-timing.css">
+  <script src="../../../assets/site.js" defer></script>
+  <script src="activity.js" defer></script>
+</head>
+<body data-root="../../../" data-section="combinational-blocks" data-activity="ripple-timing" data-title="Ripple-Carry Timing and the FPGA Bridge">
+<div class="app-shell"><aside class="site-sidebar" id="site-sidebar"></aside><div class="sidebar-scrim" id="sidebar-scrim"></div><div class="site-stage"><header class="site-toolbar"><button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open tutor menu" aria-expanded="false">&#9776;</button><a class="toolbar-title" href="../../../"><strong id="toolbar-title">SmartStart Digital Electronics Tutor</strong><span>IEEE EDS Trinidad and Tobago Chapter Edition</span></a><span class="toolbar-status" id="toolbar-progress" hidden></span></header>
+<main class="page-content">
+<section class="activity-hero"><div class="content-wrap"><p class="eyebrow">Module 5 &middot; Interactive activity</p><h1>Ripple-Carry Timing and the FPGA Bridge</h1><p>A sixteen-bit adder is simply sixteen full adders in a line. This activity shows why such a long chain is slow, how the chain is described in hardware code using port mapping, and how the design reaches a Basys 3 board.</p></div></section>
+<div class="content-wrap">
+<p class="breadcrumbs"><a href="../../../">Home</a> / <a href="../../../modules/combinational-blocks/">Combinational Building Blocks</a> / Ripple-Carry Timing</p>
+
+<section class="activity-panel" aria-labelledby="rt-heading">
+  <div class="section-heading"><div><p class="step">Part 1</p><h2 id="rt-heading">Watch the carry ripple</h2></div><p class="instruction">Each stage must wait for the carry from the stage before it.</p></div>
+  <p>In each column the full adder is in one of three conditions. It <strong>generates</strong> a carry when A = B = 1, it <strong>kills</strong> any carry when A = B = 0, and it <strong>propagates</strong> the incoming carry when A and B differ. Only a propagating stage must wait for its carry in, so a run of propagating stages forms a chain along which the carry travels one stage at a time.</p>
+  <div class="control-grid">
+    <div class="control-card"><label for="rt-n">Width: <span id="rt-n-value">16</span> bits</label><input id="rt-n" type="range" min="4" max="32" value="16"></div>
+    <div class="control-card"><label for="rt-t">Delay per stage: <span id="rt-t-value">0.5</span> ns</label><input id="rt-t" type="range" min="0.2" max="2" step="0.1" value="0.5"></div>
+    <div class="control-card"><label for="rt-a">Operand A (hex)</label><input id="rt-a" type="text" value="FFFF" maxlength="8" autocomplete="off"></div>
+    <div class="control-card"><label for="rt-b">Operand B (hex)</label><input id="rt-b" type="text" value="0001" maxlength="8" autocomplete="off"></div>
+  </div>
+  <div class="switch-grid" style="margin-top:.8rem"><div class="bit-toggle"><span>Carry in</span><button id="rt-cin" type="button">0</button></div></div>
+  <div class="action-row">
+    <button class="action-button secondary" type="button" data-preset="best">Little carry movement</button>
+    <button class="action-button secondary" type="button" data-preset="worst">A = FFFF, B = 1</button>
+    <button class="action-button secondary" type="button" data-preset="alt">A = AAAA, B = 5555, carry in = 1</button>
+  </div>
+  <div class="control-card" style="margin-top:1rem"><label for="rt-now">Time: <span id="rt-now-value">0</span> stage delays</label><input id="rt-now" type="range" min="0" max="16" step="0.5" value="0"></div>
+  <div class="action-row"><button class="action-button primary" id="rt-play" type="button">Play</button></div>
+  <div class="output-strip rt-stages" id="rt-stages" aria-live="polite"></div>
+  <p class="field-help">Bit 0 is first and the carry travels along the strip, from left to right and then down. Yellow marks a stage whose carry in is still settling, and green marks a stage whose carry out has settled. The model assumes every input changes at the same instant and every stage takes the same delay.</p>
+  <div class="summary-grid" aria-live="polite">
+    <div class="summary-card"><span>Result (hex)</span><strong id="rt-result"></strong></div>
+    <div class="summary-card"><span>Valid after</span><strong id="rt-valid"></strong></div>
+    <div class="summary-card"><span>Worst case for this width</span><strong id="rt-worst"></strong></div>
+  </div>
+</section>
+
+<section class="activity-panel" aria-labelledby="chal-heading">
+  <div class="section-heading"><div><p class="step">Part 2</p><h2 id="chal-heading">Find the slowest input</h2></div><p class="instruction">Set the width to 16, then choose inputs of your own.</p></div>
+  <p>With A = FFFF and B = 0001 the carry passes through every stage. Find a <em>different</em> pair of operands (you may also use the carry in) for which the carry still ripples through all sixteen stages. A timing analysis must always assume the worst such input, even though most inputs are far quicker.</p>
+  <details class="hint"><summary>Hint</summary><p>You need one Generate stage at bit 0 with every stage above it propagating. Alternatively, make every stage propagate and supply the carry from the carry in.</p></details>
+  <div class="action-row"><button class="action-button primary" id="rt-chal-check" type="button">Check my inputs</button></div>
+  <div class="feedback" id="rt-chal-feedback" aria-live="polite">Choose your inputs in Part 1, then check them here.</div>
+</section>
+
+<section class="activity-panel" aria-labelledby="hdl-heading">
+  <div class="section-heading"><div><p class="step">Part 3</p><h2 id="hdl-heading">From chain to hardware</h2></div><p class="instruction">The adder contains no logic of its own. It only connects blocks.</p></div>
+  <p>In the hardware description language VHDL each full adder is an <strong>entity</strong>. The adder is built by creating one copy of the entity per bit and joining the copies with <strong>port mapping</strong>: each association <code>port =&gt; signal</code> pairs a port of the block with a signal of the parent.</p>
+<pre class="equation"><code>signal carry : std_logic_vector(N downto 0);  -- carry(i) is the carry INTO stage i
+...
+carry(0) &lt;= cin;
+
+stage : for i in 0 to N-1 generate
+  fa : entity work.full_adder
+    port map (
+      a    =&gt; a(i),
+      b    =&gt; b(i),
+      cin  =&gt; carry(i),
+      sum  =&gt; sum(i),
+      cout =&gt; carry(i+1)      -- becomes the next stage's cin
+    );
+end generate stage;</code></pre>
+  <div class="callout" style="margin-top:1rem"><h3>The key connection</h3><p>Stage <em>i</em> delivers its carry out on <code>carry(i+1)</code>, which is the carry in of stage <em>i+1</em>. This single wire is the ripple, and it is why a longer chain takes longer.</p></div>
+  <p>The logic inside <code>full_adder</code> is written as a VHDL <code>function</code>, so each block is purely combinational and can be synthesized. Changing the generic <code>N</code> lengthens the chain. The testbench adds a delay to every stage in simulation, so you can compare the measured settling time with the model in Part 1.</p>
+  <div class="action-row rt-links">
+    <a class="action-button secondary" href="hdl/full_adder.vhd" download>full_adder.vhd</a>
+    <a class="action-button secondary" href="hdl/ripple_adder.vhd" download>ripple_adder.vhd</a>
+    <a class="action-button secondary" href="hdl/ripple_adder_basys3.vhd" download>ripple_adder_basys3.vhd</a>
+    <a class="action-button secondary" href="hdl/tb_ripple_adder.vhd" download>tb_ripple_adder.vhd</a>
+    <a class="action-button secondary" href="hdl/ripple_adder_basys3.xdc" download>ripple_adder_basys3.xdc</a>
+  </div>
+
+  <h3 style="margin-top:1.6rem">Mapping the design onto the Basys 3</h3>
+  <p>A <strong>constraint file</strong> (<code>.xdc</code>) tells the tools which physical pin each port uses. Our design uses these board resources:</p>
+  <div class="table-wrap">
+    <table>
+      <caption>Port to board mapping</caption>
+      <thead><tr><th>Port</th><th>Board resource</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>sw[15:0]</code></td><td>Sixteen slide switches</td><td>Operand A</td></tr>
+        <tr><td><code>btnL</code>, <code>btnR</code></td><td>Push buttons</td><td>Select operand B: 0001, 5555, FFFF or 0000</td></tr>
+        <tr><td><code>btnC</code></td><td>Centre button</td><td>Carry in</td></tr>
+        <tr><td><code>led[15:0]</code></td><td>Sixteen LEDs</td><td>Sum</td></tr>
+        <tr><td><code>dp</code></td><td>Decimal point of the right-hand display digit</td><td>Carry out (the display is active-low, so the code inverts the signal)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="field-help" style="margin-top:1rem">The Tutor does not synthesize designs. To try this on your own computer:</p>
+  <ol class="step-list">
+    <li>Create a Vivado project and choose the Basys 3 board.</li>
+    <li>Add the three design files (<code>full_adder.vhd</code>, <code>ripple_adder.vhd</code> and <code>ripple_adder_basys3.vhd</code>) and the constraint file.</li>
+    <li>Run synthesis and implementation.</li>
+    <li>Open the timing report and find the delay from a switch to an LED.</li>
+    <li>Compare it with the worst-case delay from Part 1.</li>
+  </ol>
+</section>
+
+<section class="activity-panel" aria-labelledby="check-heading">
+  <div class="section-heading"><div><p class="step">Part 4</p><h2 id="check-heading">Check your understanding</h2></div><p class="instruction">Both questions, plus the Part 2 challenge, complete this activity.</p></div>
+  <div class="exercise-card">
+    <fieldset>
+      <legend>1. What chiefly determines the time a ripple-carry adder needs before its sum is valid?</legend>
+      <div class="choice-grid">
+        <label><input type="radio" name="q1" value="switches">The number of switches on the board</label>
+        <label><input type="radio" name="q1" value="path">The longest path the carry must travel through the stages</label>
+        <label><input type="radio" name="q1" value="clock">The frequency of the board clock</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>2. Which port connection joins one full adder to the next in the chain?</legend>
+      <div class="choice-grid">
+        <label><input type="radio" name="q2" value="cout"><code>cout =&gt; carry(i+1)</code></label>
+        <label><input type="radio" name="q2" value="sum"><code>sum =&gt; carry(i)</code></label>
+        <label><input type="radio" name="q2" value="a"><code>a =&gt; cin</code></label>
+      </div>
+    </fieldset>
+    <div class="action-row"><button class="action-button primary" id="rt-quiz-check" type="button">Check answers</button></div>
+    <div class="feedback" id="rt-quiz-feedback" aria-live="polite">Answer both questions, then check your work.</div>
+  </div>
+</section>
+
+<!-- Add previous/next links here once the activity's position in Module 5 is decided. Pattern:
+<nav class="page-nav" aria-label="Activity navigation"><a href="../PREVIOUS/"><small>Previous activity</small><strong>&larr; Title</strong></a><a href="../NEXT/"><small>Next activity</small><strong>Title &rarr;</strong></a></nav> -->
+</div></main>
+<footer class="site-footer" id="site-footer">SmartStart Digital Electronics Tutor &middot; Neela Seegobin, original author &middot; Azim Abdool, web edition &middot; IEEE EDS Trinidad and Tobago Chapter</footer></div></div>
+</body>
+</html>
